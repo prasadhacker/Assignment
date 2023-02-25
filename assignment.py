@@ -16,29 +16,24 @@ class user:
         self.name = input("Enter the Name of user:")
         self.email = input("Enter the email of user:")
         self.address = input ("Enter the Address of user:")
-        self.age = int(input("Enter the age of user"))
+        self.age = int(input("Enter the age of user:"))
 
 
     def show_user(self):
         return self.name, self.email, self.address, self.age
 
 # Train dictionary with train details and fare
-train_data ={1:{'From':'Pune', 'To':'Latur', 'train_no':12345, 'Fare':{'first_class':1250, 'second_class':800, 'third_class':600, 'sleeper_class':250, 'seating_class':100}}, 2:{'From':'Latur', 'To':'Pune', 'Train_no':54321, 'Fare':{'first_class':1250, 'second_class':800, 'third_class':600, 'sleeper_class':250, 'seating_class':100}}}
+train_data ={1:{'From':'Pune', 'To':'Latur', 'train_no':12345, 'Fare':{'first_class':1250, 'second_class':800, 'third_class':600, 'sleeper_class':250, 'seating_class':100}}, 2:{'From':'Latur', 'To':'Pune', 'train_no':54321, 'Fare':{'first_class':1250, 'second_class':800, 'third_class':600, 'sleeper_class':250, 'seating_class':100}}}
 
 
 
 #Ticket class for ticket management
 class Ticket:
-    '''def __init__(self, id, date):
-        self.id = id
-        self.date = date'''
     # Getting user details from user class
-    user()
-    User = user.show_user()   
-    
+
     # create Book ticket method for ticket booking 
-    def book_ticket(self, train_data):
-        print(f"Follwing is the data of trains currently ongoing")
+    def book_ticket(train_data):
+        print(f"Following is the data of trains currently ongoing")
         
         # For loop To Print All Train Details in Dictionary
         for train in train_data:
@@ -70,21 +65,43 @@ class Ticket:
         fare = Train.get('Fare')
         Fare = fare.get(fare_choice)
         
-
-
-
         #Function to create PNR (Random String)
         def get_random_string(length):
             letters = string.ascii_uppercase
             result_str = ''.join(random.choice(letters) for i in range(length))
             return result_str
-
         PNR = get_random_string(5)
         
+        #Function to create ticket number()
+        def create_ticket_number(length):
+            digits = string.digits
+            result_str = ''.join(random.choice(digits) for i in range(length))
+            return result_str
+        ticket_number = create_ticket_number(8)
+        return PNR, ticket_number, Fare, Train
+
+
+
+
+def main():
+    print (f"Welcome to the Train Ticket Booking")
+    passenger_number= int(input('Enter the number of passenger:'))
+    U = {}
+    for i in range(passenger_number):
+        a = user()
+        User = a.get_user_info()
+        U["User{0}".format(i)]=a.show_user()
+
+    T=Ticket.book_ticket(train_data)
+    PNR = T[0]
+    ticket_number = T[1]
+    Fare = T[2]
+    Train = T[3]
+    Total_Fare = Fare*passenger_number
+
 
 
 
 
 if __name__ == "__main__":
-    a = Ticket()
-    a.book_ticket(train_data)
+    main()
