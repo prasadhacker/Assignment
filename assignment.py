@@ -47,7 +47,7 @@ class Ticket:
         
         # Getting Train Details
         Train=train_data.get(train_choice)
-        
+
         # Use of if statement seat preference 
         if fare_choice==1 :
             fare_choice = "first_class"
@@ -111,8 +111,18 @@ def main():
         discounted_fare +=fare
         j+=1
     discount = Total_Fare-discounted_fare
-
-
+    print("PNR:",PNR)
+    print("Ticket Number",ticket_number)
+    print(f"Train Number: {Train.get('train_no')}\nStart From : {Train.get('From')}\nStop At:{Train.get('To')}")
+    print("Seat Preference :",Seat_preference)
+    print("Fare:",Total_Fare)
+    print("Discount:",discount)
+    print("Total Fare:",discounted_fare)
+    for i in U:
+        print("Passenger's Name:",U[i][0])
+        print("Passenger's Email:",U[i][1])
+        print("Passenger's address:",U[i][2])
+        print("Passenger's age:",U[i][3])
 
 
 if __name__ == "__main__":
