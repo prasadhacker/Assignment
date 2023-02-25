@@ -18,13 +18,11 @@ class user:
         self.address = input ("Enter the Address of user:")
         self.age = int(input("Enter the age of user:"))
 
-
     def show_user(self):
         return self.name, self.email, self.address, self.age
 
 # Train dictionary with train details and fare
 train_data ={1:{'From':'Pune', 'To':'Latur', 'train_no':12345, 'Fare':{'first_class':1250, 'second_class':800, 'third_class':600, 'sleeper_class':250, 'seating_class':100}}, 2:{'From':'Latur', 'To':'Pune', 'train_no':54321, 'Fare':{'first_class':1250, 'second_class':800, 'third_class':600, 'sleeper_class':250, 'seating_class':100}}}
-
 
 
 #Ticket class for ticket management
@@ -46,10 +44,11 @@ class Ticket:
         train_choice = int(input())
         print("Select the choice of Fare you Want")
         fare_choice = int(input())
+        
         # Getting Train Details
         Train=train_data.get(train_choice)
-
-        # Use of short hand if statement 
+        
+        # Use of if statement seat preference 
         if fare_choice==1 :
             fare_choice = "first_class"
         elif fare_choice==2 :
@@ -78,9 +77,7 @@ class Ticket:
             result_str = ''.join(random.choice(digits) for i in range(length))
             return result_str
         ticket_number = create_ticket_number(8)
-        return PNR, ticket_number, Fare, Train
-
-
+        return PNR, ticket_number, Fare, fare_choice, Train
 
 
 def main():
@@ -96,9 +93,24 @@ def main():
     PNR = T[0]
     ticket_number = T[1]
     Fare = T[2]
-    Train = T[3]
+    Seat_preference = T[3]
+    Train = T[4]
     Total_Fare = Fare*passenger_number
-
+    
+    #calculation of Discounted fare 
+    discounted_fare = 0
+    j=0
+    for i in U:
+        age=U[i][3]
+        if age > 0 and age <= 2:
+            fare=Fare/4
+        elif age > 2 and age <= 60:
+            fare = Fare
+        else:
+            fare = Fare/2
+        discounted_fare +=fare
+        j+=1
+    discount = Total_Fare-discounted_fare
 
 
 
